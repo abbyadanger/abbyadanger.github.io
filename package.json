@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --base-href /ad-proj/ && npm run copy-docs",
+    "build": "ng build --base-href / && npm run copy-docs",
     "copy-docs:win": "xcopy dist\\ad-proj\\browser docs /E /I /Y",
     "copy-docs:unix": "cp -r dist/ad-proj/browser/* docs/",
     "copy-docs": "npm run clean-docs && (npm run copy-docs:win || npm run copy-docs:unix)",
@@ -13,7 +13,7 @@
     "clean-docs": "npm run clean-docs:win || npm run clean-docs:unix",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "serve:ssr:ad-proj": "node dist/ad-proj/server/server.mjs"
+    "serve:ssr": "node dist/ad-proj/server/server.mjs"
   },
   "prettier": {
     "printWidth": 100,
