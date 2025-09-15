@@ -1,16 +1,17 @@
-import { Component, effect, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { marked } from 'marked';
 import DOMPurify from 'dompurify';
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-markdown-viewer',
+  standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './app.html',
+  templateUrl: './markdown-viewer.component.html',
   styleUrl: './app.css'
 })
-export class App {
+export class MarkdownViewerComponent {
   protected readonly title = signal('Markdown Viewer');
   protected readonly files = signal<string[]>(['docs/hello.md', 'docs/abby.md']);
   protected readonly src = signal<string>('docs/hello.md');
@@ -21,13 +22,10 @@ export class App {
   constructor() {
     marked.setOptions({ breaks: true, gfm: true });
     this.src.set(this.files()[0]);
-    // Only load markdown in browser (not during SSR/prerender)
     if (typeof window !== 'undefined') {
       this.load(this.src());
     }
   }
-
-  // fetchFiles removed; static list used
 
   selectFile(path: string) {
     this.src.set(path);

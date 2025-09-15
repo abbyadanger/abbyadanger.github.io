@@ -1,0 +1,20 @@
+<main style="max-width: 800px; margin: 2rem auto; padding: 1rem; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;">
+  <h1>{{ title() }}</h1>
+  <nav style="margin-bottom:1rem;">
+    <a routerLink="/other" style="color:#1976d2;text-decoration:underline;">Go to Other Component</a>
+  </nav>
+
+  <div style="margin: 1rem 0; display: flex; gap: .5rem; align-items: center;">
+    <label for="fileSelect">File:</label>
+    <select #fileSelect id="fileSelect" [value]="src()" (change)="selectFile(fileSelect.value)" style="flex:1; padding:.4rem;">
+      @for (file of files(); track file) {
+        <option [value]="file">{{ file }}</option>
+      }
+    </select>
+    <button (click)="load(src())">Reload</button>
+  </div>
+
+  <div *ngIf="loading()">Loading…</div>
+  <div *ngIf="error()" style="color: #b00;">Error: {{ error() }}</div>
+  <article [innerHTML]="html()" style="line-height:1.6"></article>
+</main>

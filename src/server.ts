@@ -12,17 +12,18 @@ const browserDistFolder = join(import.meta.dirname, '../browser');
 const app = express();
 const angularApp = new AngularNodeAppEngine();
 
-/**
- * Example Express Rest API endpoints can be defined here.
- * Uncomment and define endpoints as necessary.
- *
- * Example:
- * ```ts
- * app.get('/api/{*splat}', (req, res) => {
- *   // Handle API request
- * });
- * ```
- */
+import fs from 'fs';
+import path from 'path';
+
+// API endpoint to list markdown files in public/docs
+app.get('/api/docs-list', (req, res) => {
+  const docsDir = path.join(import.meta.dirname, '../public/docs');
+  fs.readdir(docsDir, (err, files) => {
+    if (err) return res.status(500).json({ error: 'Failed to read docs directory' });
+    const mdFiles = files.filter(f => f.endsWith('.md')).map(f => `docs/${f}`);
+    res.json(mdFiles);
+  });
+});
 
 /**
  * Serve static files from /browser

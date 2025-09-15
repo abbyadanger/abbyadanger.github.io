@@ -1,11 +1,8 @@
 import { Routes } from '@angular/router';
-import { Home } from './home/home';
-import { BlogList } from './blog-list/blog-list';
-import { BlogPost } from './blog-post/blog-post';
+import { MarkdownViewerComponent } from './markdown-viewer.component';
+import { OtherComponent } from './other.component';
 
 export const routes: Routes = [
-  { path: '', component: Home, pathMatch: 'full' },
-  { path: 'blog', component: BlogList },
-  { path: 'blog/:slug', component: BlogPost, data: { renderMode: 'client' } },
-  { path: '**', redirectTo: '' }
+  { path: '', component: MarkdownViewerComponent },
+  { path: 'other', component: OtherComponent },
 ];
